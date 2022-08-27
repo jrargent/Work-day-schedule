@@ -57,6 +57,8 @@ textarea{
   color: white;
 }
 
+
+/*btn btn-info use for button if can't get below to work*/
 .saveBtn {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
