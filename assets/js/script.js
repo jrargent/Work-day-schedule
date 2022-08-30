@@ -1,3 +1,5 @@
+const localStorageKeyName = "tasks";
+
 // adds current day to the header of the page
 var currentTime = moment();
 var currentDay = currentTime.format('dddd MMM Do YY');
@@ -102,15 +104,15 @@ $(".saveBtn").on("click", function(){
   saveArray.push({id: task.id, text: task.innerText})
   };
   
-  localStorage.setItem("tasks", JSON.stringify(saveArray));
+  localStorage.setItem(localStorageKeyName, JSON.stringify(saveArray));
 });
 
 // load task
 var loadTasks = function() {
-  tasks = JSON.parse(localStorage.getItem("tasks"));
+  tasks = JSON.parse(localStorage.getItem(localStorageKeyName));
 
   $.each(tasks, function(i, taskObj) {
-    $("#" + taskObj.id).children().innerText = taskObj.text;
+    $("#" + taskObj.id).children()[0].innerText = taskObj.text;
 
   });
  // repopulates the saveArray because it empties when page reloads
@@ -122,3 +124,6 @@ console.table(tasks);
 
 
   loadTasks();
+
+  // note to self
+  // add all ids needed, remove hard coded P
