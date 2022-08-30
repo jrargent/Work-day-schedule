@@ -55,6 +55,37 @@ $.each(isBeforeArray, function(i, timeId){
 });
 
 
-
 // End of time check
 
+
+$(".description").on("click", "p", function() {
+  var text = $(this).text().trim();
+  //create a text area
+  var textInput = $("<textarea>").val(text);
+
+  $(this).replaceWith(textInput);
+  textInput.trigger("focus");
+});
+
+$(".description").on("blur", "textarea", function() {
+   // get the textarea's current value/text
+    var text = $(this).val().trim();
+    // recreate p element
+    var taskP = $("<p>").text(text);
+    // replace textarea with p element
+    $(this).replaceWith(taskP);
+
+});
+
+
+
+/*
+Notes for button to save to localStorage
+
+
+
+
+
+
+
+*/
