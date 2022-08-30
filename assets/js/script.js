@@ -13,6 +13,9 @@ var array = [];
 var isAfterArray = [];
 var isBeforeArray = [];
 
+// array for localStorage object
+var saveArray = new Array();
+
 $(".hour").each(function() {
   array.push({
     id: this.id,
@@ -58,12 +61,12 @@ $.each(isBeforeArray, function(i, timeId){
 // End of time check
 
 
-$(".description").on("click", "p", function() {
+$(".description").on("click", function() {
   var text = $(this).text().trim();
   //create a text area
   var textInput = $("<textarea>").val(text);
 
-  $(this).replaceWith(textInput);
+  $(this).children().replaceWith(textInput);
   textInput.trigger("focus");
 });
 
@@ -77,15 +80,45 @@ $(".description").on("blur", "textarea", function() {
 
 });
 
+// save task
+$(".saveBtn").on("click", function(){
+  var task = $(this).parents(".row").find(".description")[0]
+  
+  // to avoid pushing duplicates into the array
+  if (!Array.isArray(saveArray)) {
+    saveArray = [];
+  }
 
 
-/*
-Notes for button to save to localStorage
+ 
+    var i = saveArray.length > 0 ? saveArray.findIndex(s => s.id === task.id) : -1  
+    if (i > -1) { 
+      saveArray[i].text = task.innerText;
+    }
+  
+ 
+
+  else {
+  saveArray.push({id: task.id, text: task.innerText})
+  };
+  
+  localStorage.setItem("tasks", JSON.stringify(saveArray));
+});
+
+// load task
+var loadTasks = function() {
+  tasks = JSON.parse(localStorage.getItem("tasks"));
+
+  $.each(tasks, function(i, taskObj) {
+    $("#" + taskObj.id).children().innerText = taskObj.text;
+
+  });
+ // repopulates the saveArray because it empties when page reloads
+  saveArray = tasks
 
 
+console.table(tasks);
+}
 
 
-
-
-
-*/
+  loadTasks();
