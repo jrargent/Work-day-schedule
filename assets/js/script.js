@@ -41,25 +41,31 @@ function auditTime(timeObject) {
   }
 };
 
-// all of the below will get set inside a setInterval triggered function to run once an hour (beginning of the hour)
+// all of the below will get set inside a setInterval triggered function to run every minute (or would few minutes be better?)
    // these should be run during the interval so that they update when function is run. Otherwise only time/day at time of page load will be recorded in var
-currentTime = moment();
-currentDay = currentTime.format('dddd MMM Do YY');
-$("#currentDay").text(currentDay);
 
-$.each(array, function(i, timeObj){
-  auditTime(timeObj);
-});
+// create var for milliseconds in a minute
+var intervalTime = 60000;
 
-$.each(isAfterArray, function(i, timeId){
-  $("#" + timeId).toggleClass("bg-secondary");
-});
+setInterval(checkTime(), intervalTime); 
 
-$.each(isBeforeArray, function(i, timeId){
-  $("#" + timeId).toggleClass("bg-success");
-});
-
-
+function checkTime() {
+  currentTime = moment();
+  currentDay = currentTime.format('dddd MMM Do YY');
+  $("#currentDay").text(currentDay);
+  
+  $.each(array, function(i, timeObj){
+    auditTime(timeObj);
+  });
+  
+  $.each(isAfterArray, function(i, timeId){
+    $("#" + timeId).toggleClass("bg-secondary");
+  });
+  
+  $.each(isBeforeArray, function(i, timeId){
+    $("#" + timeId).toggleClass("bg-success");
+  });
+};
 // End of time check
 
 
@@ -107,6 +113,7 @@ $(".saveBtn").on("click", function(){
   localStorage.setItem(localStorageKeyName, JSON.stringify(saveArray));
 });
 
+
 // load task
 var loadTasks = function() {
   tasks = JSON.parse(localStorage.getItem(localStorageKeyName));
@@ -124,6 +131,4 @@ console.table(tasks);
 
 
   loadTasks();
-
-  // note to self
-  // add all ids needed, remove hard coded P
+  
