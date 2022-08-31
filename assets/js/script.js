@@ -18,7 +18,7 @@ var isBeforeArray = [];
 // array for localStorage object
 var saveArray = new Array();
 
-$(".hour").each(function() {
+$(".hour").each(function () {
   array.push({
     id: this.id,
     text: this.innerText.trim()
@@ -41,35 +41,32 @@ function auditTime(timeObject) {
   }
 };
 
-// all of the below will get set inside a setInterval triggered function to run every minute (or would few minutes be better?)
-   // these should be run during the interval so that they update when function is run. Otherwise only time/day at time of page load will be recorded in var
-
 // create var for milliseconds in a minute
 var intervalTime = 60000;
 
-setInterval(checkTime(), intervalTime); 
+setInterval(checkTime(), intervalTime);
 
 function checkTime() {
   currentTime = moment();
   currentDay = currentTime.format('dddd MMM Do YY');
   $("#currentDay").text(currentDay);
-  
-  $.each(array, function(i, timeObj){
+
+  $.each(array, function (i, timeObj) {
     auditTime(timeObj);
   });
-  
-  $.each(isAfterArray, function(i, timeId){
+
+  $.each(isAfterArray, function (i, timeId) {
     $("#" + timeId).toggleClass("bg-secondary");
   });
-  
-  $.each(isBeforeArray, function(i, timeId){
+
+  $.each(isBeforeArray, function (i, timeId) {
     $("#" + timeId).toggleClass("bg-success");
   });
 };
 // End of time check
 
 
-$(".description").on("click", function() {
+$(".description").on("click", function () {
   var text = $(this).text().trim();
   //create a text area
   var textInput = $("<textarea>").val(text);
@@ -78,57 +75,53 @@ $(".description").on("click", function() {
   textInput.trigger("focus");
 });
 
-$(".description").on("blur", "textarea", function() {
-   // get the textarea's current value/text
-    var text = $(this).val().trim();
-    // recreate p element
-    var taskP = $("<p>").text(text);
-    // replace textarea with p element
-    $(this).replaceWith(taskP);
+$(".description").on("blur", "textarea", function () {
+  // get the textarea's current value/text
+  var text = $(this).val().trim();
+  // recreate p element
+  var taskP = $("<p>").text(text);
+  // replace textarea with p element
+  $(this).replaceWith(taskP);
 
 });
 
 // save task
-$(".saveBtn").on("click", function(){
+$(".saveBtn").on("click", function () {
   var task = $(this).parents(".row").find(".description")[0]
-  
+
   // to avoid pushing duplicates into the array
   if (!Array.isArray(saveArray)) {
     saveArray = [];
   }
 
 
- 
-    var i = saveArray.length > 0 ? saveArray.findIndex(s => s.id === task.id) : -1  
-    if (i > -1) { 
-      saveArray[i].text = task.innerText;
-    }
-  
- 
+
+  var i = saveArray.length > 0 ? saveArray.findIndex(s => s.id === task.id) : -1
+  if (i > -1) {
+    saveArray[i].text = task.innerText;
+  }
+
+
 
   else {
-  saveArray.push({id: task.id, text: task.innerText})
+    saveArray.push({ id: task.id, text: task.innerText })
   };
-  
+
   localStorage.setItem(localStorageKeyName, JSON.stringify(saveArray));
 });
 
 
 // load task
-var loadTasks = function() {
+var loadTasks = function () {
   tasks = JSON.parse(localStorage.getItem(localStorageKeyName));
 
-  $.each(tasks, function(i, taskObj) {
+  $.each(tasks, function (i, taskObj) {
     $("#" + taskObj.id).children()[0].innerText = taskObj.text;
 
   });
- // repopulates the saveArray because it empties when page reloads
+  // repopulates the saveArray because it empties when page reloads
   saveArray = tasks
+};
 
 
-console.table(tasks);
-}
-
-
-  loadTasks();
-  
+loadTasks();
