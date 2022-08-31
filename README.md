@@ -3,9 +3,11 @@
 
 ## Link to deployed website
 
+https://jrargent.github.io/Work-day-schedule/
+
 ## Link to Github Repo
 
-
+https://github.com/jrargent/Work-day-schedule
 
 This project was tasked to meet the following criteria:
 
@@ -40,4 +42,8 @@ Screenshots of my website:
 
 
 ## Things I learned in making this website:
- - 
+ - I gained a better understanding of objects and how to pull data from them
+ - I became better as pacing myself in how I work. I worked on bits at a time and walked away as soon as I felt myself getting too in the weeds on something.
+ - I became more comfortable with using localStorage
+ - Bootstrap is my best friend and you can pry it from my cold dead hands
+ - I still do not leave myself a lot of time to finalize styling. I focus much more on functionality than on looks. But this is true in all aspects of my  life.
