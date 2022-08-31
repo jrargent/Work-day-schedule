@@ -9,14 +9,16 @@ $("#currentDay").text(currentDay);
 var formattedCurrentTime = currentTime.format("h a");
 console.log(formattedCurrentTime);
 
+// array for localStorage object
+var saveArray = new Array();
+
 // create array object to collect ids and hour text
 
 var array = [];
 var isAfterArray = [];
 var isBeforeArray = [];
 
-// array for localStorage object
-var saveArray = new Array();
+
 
 $(".hour").each(function () {
   array.push({
@@ -88,7 +90,8 @@ $(".description").on("blur", "textarea", function () {
 // save task
 $(".saveBtn").on("click", function () {
   var task = $(this).parents(".row").find(".description")[0]
-
+  console.log(task);
+debugger;
   // to avoid pushing duplicates into the array
   if (!Array.isArray(saveArray)) {
     saveArray = [];
@@ -98,16 +101,17 @@ $(".saveBtn").on("click", function () {
 
   var i = saveArray.length > 0 ? saveArray.findIndex(s => s.id === task.id) : -1
   if (i > -1) {
-    saveArray[i].text = task.innerText;
+    saveArray[i].text.trim() = task.innerText.trim();
   }
 
 
 
   else {
-    saveArray.push({ id: task.id, text: task.innerText })
+    saveArray.push({ id: task.id, text: task.innerText.trim() })
   };
 
   localStorage.setItem(localStorageKeyName, JSON.stringify(saveArray));
+  console.log(saveArray)
 });
 
 
