@@ -47,3 +47,5 @@ Screenshots of my website:
  - I became more comfortable with using localStorage
  - Bootstrap is my best friend and you can pry it from my cold dead hands
  - I still do not leave myself a lot of time to finalize styling. I focus much more on functionality than on looks. But this is true in all aspects of my  life.
+ - I learned how to work with moment.js and how to use it to compare times/dates.
+ - I learned how to use jQuery to assist in coding JavaScript. I am quite keen on it. It helped me gain a better understanding of JavaScript itself. It helped me to feel more comfortable and confident with JS.
