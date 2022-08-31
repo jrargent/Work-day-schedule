@@ -101,7 +101,7 @@ debugger;
 
   var i = saveArray.length > 0 ? saveArray.findIndex(s => s.id === task.id) : -1
   if (i > -1) {
-    saveArray[i].text.trim() = task.innerText.trim();
+    saveArray[i].text = task.innerText.trim();
   }
 
 
